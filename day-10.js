@@ -32,6 +32,7 @@ function fiveLine(s){
 
 //https://www.codewars.com/kata/training-js-number-19-methods-of-string-object-touppercase-tolowercase-and-replace/train/javascript
 
+//Так не працює
 function alienLanguage(str){
     const words = str.split(' ');
     for (let i = 0; i < words.length; i++) {
@@ -39,7 +40,22 @@ function alienLanguage(str){
         for (let j = 0; j < wordLength - 1; j++) {
             words[i] = words[i].replace(words[i][j], words[i][j].toUpperCase());
         }
-        words[i] = words[i].replace(words[i][wordLength - 1], words[i][wordLength - 1].toLowerCase()); 
+        words[i] = words[i].replace(words[i][wordLength - 1], words[i][wordLength - 1].toLowerCase()); //Ось цей рядочок чомусь інколи заміняє не останню літеру, а якусь іншую
     }
     return words.join(' ');
 }
+
+
+//А так працює
+function alienLanguage(str){
+    const words = str.split(' ');
+    for (let i = 0; i < words.length; i++) {
+        const wordLength = words[i].length;
+        for (let j = 0; j < wordLength - 1; j++) {
+            words[i] = words[i].replace(words[i][j], words[i][j].toUpperCase());
+        }
+        words[i] = words[i].replace(/.$/, words[i][wordLength - 1].toLowerCase()); //Поставила тут регулярний вираз, що вказує на кінець рядка
+    }
+    return words.join(' ');
+}
+
